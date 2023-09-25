@@ -41,7 +41,7 @@ class Musician {
     // збільшення значення статичного поля на 1
     this.#name = name;
     this.#instrument = instrument;
-    this.count++;
+    Musician.count++;
   }
 
   get name() {
@@ -248,7 +248,7 @@ class Band {
 
   constructor(name, members) {
     this.#name = name;
-    this.#members = [];
+    this.#members = [...members];
   }
   get name() {
     return this.#name;
@@ -261,7 +261,7 @@ class Band {
   }
   addMember(newMember) {
     if (newMember instanceof Musician) {
-      newMember.band = this;
+      newMember.band = this.#name;
       this.#members.push(newMember);
     } else {
       console.log("Новий учасник повинен бути екземпляром класу Musician");
@@ -269,8 +269,8 @@ class Band {
   }
 
   playMusic() {
-    this.#members.forEach((newMember) => {
-      newMember.play();
+    this.#members.forEach((member) => {
+      member.play();
     });
   }
 }
@@ -310,7 +310,7 @@ class Performance {
     return this.#date;
   }
 
-  date() {
+  info() {
     console.log(
       `Гурт ${this.#band.name} виступить в ${
         this.#location
@@ -417,13 +417,13 @@ class SongWriter {
   #songs;
 
   constructor(songs) {
-    this.#songs = [];
+    this.#songs = songs;
   }
   get songs() {
     return this.#songs;
   }
-  addSong(newSong) {
-    this.#songs.push(newSong);
+  addSong(song) {
+    this.#songs.push(song);
   }
 
   info() {
